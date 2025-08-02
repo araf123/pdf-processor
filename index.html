@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Processor Suite</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^0.8.0",
+    "marked": "https://esm.sh/marked@^15.0.8",
+    "pdf-lib": "https://esm.sh/pdf-lib@^1.17.1",
+    "pdfjs-dist/build/pdf.mjs": "https://esm.sh/pdfjs-dist@4.4.168/build/pdf.mjs",
+    "pdfjs-dist/": "https://esm.sh/pdfjs-dist@4.4.168/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>PDF Processor Suite</h1>
+            <p>Combine, edit, and reformat your PDF files directly in your browser.</p>
+        </header>
+
+        <section class="card" aria-labelledby="actions-heading">
+            <h2 id="actions-heading" class="visually-hidden">File Actions</h2>
+            <div class="button-group">
+                <button id="add-files-btn" class="button-primary">1. Add PDFs</button>
+                <input type="file" id="file-input" multiple accept=".pdf" hidden>
+                <button id="clear-list-btn">Clear List</button>
+            </div>
+        </section>
+
+        <section class="card" aria-labelledby="file-list-heading">
+            <h2 id="file-list-heading" class="card-title">File List</h2>
+            <ul id="file-list">
+                <li class="placeholder">Add files to see them here.</li>
+            </ul>
+            <div class="button-group reorder-buttons">
+                 <button id="move-up-btn" aria-label="Move selected file up">Move Up ↑</button>
+                 <button id="move-down-btn" aria-label="Move selected file down">Move Down ↓</button>
+            </div>
+        </section>
+        
+        <section id="editor-section" class="card" aria-labelledby="editor-heading">
+             <h2 id="editor-heading" class="card-title">Page Editor</h2>
+             <p id="editor-info">Select a file to edit its pages.</p>
+             <div class="form-group-editor">
+                <label for="page-range-input">Remove pages (e.g., 2, 5-8, 10-):</label>
+                <div class="input-group">
+                    <input type="text" id="page-range-input" placeholder="e.g., 2, 5-8, 10-">
+                    <button id="apply-range-btn">Apply</button>
+                    <button id="reset-range-btn">Reset</button>
+                </div>
+             </div>
+        </section>
+
+        <section class="card" aria-labelledby="options-heading">
+            <h2 id="options-heading" class="card-title">Global Processing Options</h2>
+            <div class="form-group">
+                <label for="layout-select">Layout (pages per sheet):</label>
+                <select id="layout-select">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="invert-check" checked>
+                <label for="invert-check">Invert Colors (for dark background PDFs)</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="monochrome-check" checked>
+                <label for="monochrome-check">Apply Smart Monochrome Filter (Pure B&W)</label>
+            </div>
+        </section>
+
+        <section class="card process-card">
+            <button id="process-btn" class="button-primary button-large">2. Process & Save PDF</button>
+            <button id="cancel-btn" class="button-large">Cancel</button>
+        </section>
+
+        <section class="card progress-section" aria-live="polite">
+            <p id="status-label">Select files to begin.</p>
+            <p id="time-label"></p>
+            <progress id="progress-bar" value="0" max="100"></progress>
+        </section>
+    </main>
+    <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
